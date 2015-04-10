@@ -49,6 +49,9 @@ for time = 1:total_time
 		energy_notes(length(freqs) - note + 1) = sum((conv(sin(2*pi*freqs(note)*times),[signals{time}]).^2));
 	end
 
+	energy_notes = energy_notes - min(energy_notes);
+	energy_notes = energy_notes./max(energy_notes);
+
 	energy_notes_time(:, time) = energy_notes;
 end
 
