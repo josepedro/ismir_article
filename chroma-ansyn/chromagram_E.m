@@ -13,8 +13,11 @@ if nargin < 6;   f_sd = 1; end
 
 fftwin = fftlen/2;
 ffthop = fftlen/4;  % always for this
-
-D = abs(specgram(d,fftlen,sr,fftwin,(fftwin-ffthop)));
+fftwin-ffthop
+D = abs(specgram(d,fftlen,sr));
+size(D)
+%figure;plot(D(264,:))
+%figure;plot(D(265,:))
 
 A0 = 27.5; % Hz
 A440 = 440; % Hz

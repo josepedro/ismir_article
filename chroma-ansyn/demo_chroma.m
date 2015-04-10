@@ -43,7 +43,7 @@
 % Calculate the chroma matrix.  Use a long FFT to discriminate
 % spectral lines as well as possible (2048 is the default value)
 cfftlen=2048;
-C = chromagram_IF(d,sr,fftlen);
+C = chromagram_E(d,sr,cfftlen);
 % The frame advance is always one quarter of the FFT length.  Thus,
 % the columns  of C are at timebase of fftlen/4/sr
 tt = [1:size(C,2)]*cfftlen/4/sr;
@@ -86,14 +86,14 @@ title('Chromagram')
 % the sampling rate for the waveform to be generated.
 x = chromsynth(C,cfftlen/4/sr,sr);
 % Plot this alongside the others to see how it differs
-subplot(313)
-specgram(x,sfftlen,sr);
-caxis(max(caxis)+[-60 0])
-axis([0 length(d)/sr 0 4000])
-title('Shepard tone resynthesis')
+%subplot(313)
+%specgram(x,sfftlen,sr);
+%caxis(max(caxis)+[-60 0])
+%axis([0 length(d)/sr 0 4000])
+%title('Shepard tone resynthesis')
 % Of course, the main point is to listen to the resynthesis:
-soundsc(x,sr);
-wavwrite(x,sr,'piano-shepard.wav');
+%soundsc(x,sr);
+%wavwrite(x,sr,'piano-shepard.wav');
 
 %% Download
 % You can download all the code and data for these examples here:
