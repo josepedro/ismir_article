@@ -73,6 +73,12 @@ for time = 1:total_time
 	end
 end
 
-figure;
-%imagesc([1:total_time],[1:12] , chromagram');
-surf(chromagram);
+% invert chromagram to plot
+chromagram_inverse_notes(size(chromagram)) = 0;
+for note = 1:12
+	chromagram_inverse_notes(12 + 1 - note, :) = chromagram(note, :);
+end
+chromagram_inverse_notes = chromagram_inverse_notes(1:end, 1:end-3);
+imagesc([0:0.128:12],[1:12], chromagram_inverse_notes);
+title('Chromagram With Convolution')
+set(gca,'YTickLabel',{' ' ' ' ' '  ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' '});

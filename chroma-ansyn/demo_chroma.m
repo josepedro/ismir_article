@@ -1,3 +1,6 @@
+clear all;
+close all;
+
 %% Chroma Feature Analysis and Synthesis
 %
 % Chroma features are an interesting and powerful representation 
@@ -58,10 +61,11 @@ tt = [1:size(C,2)]*cfftlen/4/sr;
 %title('Original Sound')
 % Now the chromagram, also on a dB magnitude scale
 %subplot(312)
-imagesc(tt,[1:12],20*log10(C+eps));
+imagesc([0:0.128:12],[1:12],20*log10(C+eps));
 axis xy
 caxis(max(caxis)+[-60 0])
-title('Chromagram')
+title('Chromagram with Short Fast Fourier Trasnform (SFFT)')
+set(gca,'YTickLabel',{' ' ' ' ' '  ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' '});
 
 %% Chroma Synthesis
 % The chroma representation tells us the intensity of each of the 
