@@ -13,7 +13,7 @@ downsample_rate = 2;
 signal = signal(:,1);
 
 signals = {};
-window_size = 0.125;
+window_size = 0.128;
 total_time = fix(length(signal)/(sampling_rate*window_size))
 for time = 1:total_time
 	% calculate the position in the beginning of signal
@@ -35,7 +35,7 @@ for time = 1:total_time
 	energy_notes(length(freqs)) = 0;
 	
 	for note = 1:length(freqs)
-		energy_notes(length(freqs) - note + 1) = sum((conv(sin(2*pi*freqs(note)*times),[signals{time}]).^2));
+		energy_notes(note) = sum((conv(sin(2*pi*freqs(note)*times),[signals{time}]).^2));
 	end
 
 	energy_notes = energy_notes - min(energy_notes);
@@ -44,9 +44,35 @@ for time = 1:total_time
 	energy_notes_time(:, time) = energy_notes;
 end
 
-figure;
-imagesc([1:3], [1:96], (energy_notes_time')');
+%figure;
+%imagesc([1:total_time], [1:length(freqs)], energy_notes_time);
 
 % build chromagram with 12 chromas
-chromagram() = 0;
+chromagram(12, total_time) = 0;
+for time = 1:total_time
+	for note = 1:12
+		if note + 12*8 <= length(freqs)
+			chromagram(note, time) = energy_notes_time(note, time) + energy_notes_time(note + 12, time) ...
+			+ energy_notes_time(note + 2*12, time) + energy_notes_time(note + 3*12, time) ...
+				+ energy_notes_time(note + 4*12, time) + energy_notes_time(note + 5*12, time) ...
+					+ energy_notes_time(note + 6*12, time) + energy_notes_time(note + 7*12, time) ...
+					+ energy_notes_time(note + 8*12, time);
 
+		elseif note + 12*7 <= length(freqs)
+			chromagram(note, time) = energy_notes_time(note, time) + energy_notes_time(note + 12, time) ...
+			+ energy_notes_time(note + 2*12, time) + energy_notes_time(note + 3*12, time) ...
+				+ energy_notes_time(note + 4*12, time) + energy_notes_time(note + 5*12, time) ...
+					+ energy_notes_time(note + 6*12, time) + energy_notes_time(note + 7*12, time);
+		
+		else
+			chromagram(note, time) = energy_notes_time(note, time) + energy_notes_time(note + 12, time) ...
+			+ energy_notes_time(note + 2*12, time) + energy_notes_time(note + 3*12, time) ...
+				+ energy_notes_time(note + 4*12, time) + energy_notes_time(note + 5*12, time) ...
+					+ energy_notes_time(note + 6*12, time);	
+		end
+	end
+end
+
+figure;
+%imagesc([1:total_time],[1:12] , chromagram');
+surf(chromagram);
