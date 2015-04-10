@@ -12,16 +12,6 @@ freqs = [27.5 29.135 30.868 32.703 34.648 36.708 38.891 41.203 43.654 46.249 48.
 downsample_rate = 2;
 signal = signal(:,1);
 
-%signal_1 = signal(1:0.5*sampling_rate);
-%signal_2 = signal(0.5*sampling_rate:1*sampling_rate);
-%signal_3 = signal(1*sampling_rate:1.5*sampling_rate);
-
-%signal_1 = downsample(signal_1, downsample_rate);
-%signal_2 = downsample(signal_2, downsample_rate);
-%signal_3 = downsample(signal_3, downsample_rate);
-
-%signals = {signal_1, signal_2, signal_3};
-
 signals = {};
 window_size = 0.125;
 total_time = fix(length(signal)/(sampling_rate*window_size))
@@ -32,7 +22,6 @@ for time = 1:total_time
 	time_end = round(time*(sampling_rate*window_size));
 	signals{time} = downsample(signal(time_start:time_end), downsample_rate);
 end
-
 
 sampleFreq = sampling_rate/downsample_rate;
 dt = 1/sampleFreq;
@@ -57,4 +46,7 @@ end
 
 figure;
 imagesc([1:3], [1:96], (energy_notes_time')');
+
+% build chromagram with 12 chromas
+chromagram() = 0;
 
