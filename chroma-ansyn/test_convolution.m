@@ -23,8 +23,9 @@ signal = signal(:,1);
 %signals = {signal_1, signal_2, signal_3};
 
 signals = {};
-window_size = 0.5;
-for time = 1:3
+window_size = 0.125;
+total_time = fix(length(signal)/(sampling_rate*window_size))
+for time = 1:total_time
 	% calculate the position in the beginning of signal
 	time_start = round(1+((time-1)*(sampling_rate*window_size)));
 	% calculate the position in the finishing of signal
@@ -39,8 +40,8 @@ duration = 1;
 times = [0:dt:duration];
 filters_notes = {};
 
-energy_notes_time(length(freqs), 3) = 0;
-for time = 1:3
+energy_notes_time(length(freqs), total_time) = 0;
+for time = 1:total_time
 	disp(time);
 	energy_notes(length(freqs)) = 0;
 	
