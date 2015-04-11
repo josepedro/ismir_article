@@ -1,5 +1,5 @@
 clear('all');
-
+tic
 freqs = [27.5 29.135 30.868 32.703 34.648 36.708 38.891 41.203 43.654 46.249 48.999 51.913 55 58.270 61.735 ...
 		 65.406 69.296 73.416 77.782 82.407 87.307 92.499 97.999 103.83 110 116.54 123.47 ...
 		 130.81 138.59 146.83 155.56 164.81 174.61 185 196 207.65 220 233.08 246.94 ...
@@ -8,12 +8,12 @@ freqs = [27.5 29.135 30.868 32.703 34.648 36.708 38.891 41.203 43.654 46.249 48.
 		 1046.5 1108.7 1174.7 1244.5 1318.5 1396.9 1480.0 1568.0 1661.2 1760.0 1864.7 1975.5 ...
 		 2093.0 2217.5 2349.3 2489.0 2637.0 2793.8 	2960.0 3136.0 3322.4 3520.0 3729.3 3951.1];
 
-[signal, sampling_rate] = wavread('piano-chrom.wav');
+[signal, sampling_rate] = wavread('music_piano_guitar.wav');
 downsample_rate = 2;
 signal = signal(:,1);
 
 signals = {};
-window_size = 0.128;
+window_size = 0.5;
 total_time = fix(length(signal)/(sampling_rate*window_size))
 for time = 1:total_time
 	% calculate the position in the beginning of signal
@@ -23,11 +23,11 @@ for time = 1:total_time
 	signals{time} = downsample(signal(time_start:time_end), downsample_rate);
 end
 
+% configurations to bases tones pures
 sampleFreq = sampling_rate/downsample_rate;
 dt = 1/sampleFreq;
 duration = 1;
 times = [0:dt:duration];
-filters_notes = {};
 
 energy_notes_time(length(freqs), total_time) = 0;
 for time = 1:total_time
@@ -72,13 +72,14 @@ for time = 1:total_time
 		end
 	end
 end
-
+toc
 % invert chromagram to plot
 chromagram_inverse_notes(size(chromagram)) = 0;
 for note = 1:12
 	chromagram_inverse_notes(12 + 1 - note, :) = chromagram(note, :);
 end
-chromagram_inverse_notes = chromagram_inverse_notes(1:end, 1:end-3);
+figure;
+%chromagram_inverse_notes = chromagram_inverse_notes(1:end, 1:end-3);
 imagesc([0:0.128:12],[1:12], chromagram_inverse_notes);
 title('Chromagram With Convolution')
 set(gca,'YTickLabel',{' ' ' ' ' '  ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' '});
