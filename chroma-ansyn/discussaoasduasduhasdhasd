@@ -1,0 +1,4 @@
+
+Discussão	
+
+O terceiro experimento diz respeito ao tempo de processamento de cada método. Foi observado os tempos de cada método no primeiro experimento. O método da transformada de fourier durou 0.100138 segundos enquanto que o método da convolução durou 13.266711 segundos.

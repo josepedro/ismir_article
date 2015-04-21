@@ -8,12 +8,12 @@ freqs = [27.5 29.135 30.868 32.703 34.648 36.708 38.891 41.203 43.654 46.249 48.
 		 1046.5 1108.7 1174.7 1244.5 1318.5 1396.9 1480.0 1568.0 1661.2 1760.0 1864.7 1975.5 ...
 		 2093.0 2217.5 2349.3 2489.0 2637.0 2793.8 	2960.0 3136.0 3322.4 3520.0 3729.3 3951.1];
 
-[signal, sampling_rate] = wavread('music_piano_guitar.wav');
+[signal, sampling_rate] = wavread('music_piano.wav');
 downsample_rate = 2;
 signal = signal(:,1);
 
 signals = {};
-window_size = 0.5;
+window_size = 0.04;
 total_time = fix(length(signal)/(sampling_rate*window_size))
 for time = 1:total_time
 	% calculate the position in the beginning of signal
@@ -73,13 +73,44 @@ for time = 1:total_time
 	end
 end
 toc
+
 % invert chromagram to plot
 chromagram_inverse_notes(size(chromagram)) = 0;
 for note = 1:12
 	chromagram_inverse_notes(12 + 1 - note, :) = chromagram(note, :);
 end
+chromagram;% = chromagram_inverse_notes;
+
+
+size_chromagram = size(chromagram);
+total_notes = size_chromagram(1);
+total_time = size_chromagram(2);
+for time = 1:total_time
+	for note = 1:total_notes
+		if chromagram(note, time) == max(chromagram(:, time))
+			chromagram(note, time) = max(chromagram(:, time));
+		else
+			chromagram(note, time) = 0;
+		end
+	end
+end
+
 figure;
 %chromagram_inverse_notes = chromagram_inverse_notes(1:end, 1:end-3);
-imagesc([0:0.128:12],[1:12], chromagram_inverse_notes);
-title('Chromagram With Convolution')
+imagesc([0:0.128:12],[1:12], chromagram);
+title('Chromagram With CCM')
 set(gca,'YTickLabel',{' ' ' ' ' '  ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' '});
+
+[rows, columns] = find(chromagram);
+row_not_repeated = [];
+number_row_not_repeated = 1;
+for number_row = 1:length(rows)-1
+	if rows(number_row) ~= rows(number_row + 1)
+		row_not_repeated(number_row_not_repeated) = rows(number_row);
+		number_row_not_repeated = number_row_not_repeated + 1;
+	end
+end
+rows = row_not_repeated(1:12);
+ideal_sequence = [1:12];
+result = corrcoef(rows, ideal_sequence);
+percentual_hits = result(1,2)*100

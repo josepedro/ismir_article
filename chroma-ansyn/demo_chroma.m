@@ -42,11 +42,13 @@ clear all;
 
 % Read an audio waveform
 tic
-[d,sr] = wavread('music_piano_guitar.wav');
+[d,sr] = wavread('music_piano.wav');
 d = d(:,1);
 % Calculate the chroma matrix.  Use a long FFT to discriminate
 % spectral lines as well as possible (2048 is the default value)
-cfftlen=22050;
+%cfftlen=5644;
+window_time_seconds = 0.04;
+cfftlen=window_time_seconds*sr;
 C = chromagram_E(d,sr,cfftlen);
 toc
 % The frame advance is always one quarter of the FFT length.  Thus,
@@ -63,11 +65,39 @@ tt = [1:size(C,2)]*cfftlen/4/sr;
 %title('Original Sound')
 % Now the chromagram, also on a dB magnitude scale
 %subplot(312)
+chromagram = 20*log10(C+eps);
+size_chromagram = size(chromagram);
+total_notes = size_chromagram(1);
+total_time = size_chromagram(2);
+for time = 1:total_time
+	for note = 1:total_notes
+		if chromagram(note, time) == max(chromagram(:, time))
+			chromagram(note, time) = max(chromagram(:, time));
+		else
+			chromagram(note, time) = 0;
+		end
+	end
+end
+
+[rows, columns] = find(chromagram);
+row_not_repeated = [];
+number_row_not_repeated = 1;
+for number_row = 1:length(rows)-1
+	if rows(number_row) ~= rows(number_row + 1)
+		row_not_repeated(number_row_not_repeated) = rows(number_row);
+		number_row_not_repeated = number_row_not_repeated + 1;
+	end
+end
+rows = row_not_repeated(1:12);
+ideal_sequence = [1:12];
+result = corrcoef(rows, ideal_sequence);
+percentual_hits = result(1,2)*100
+
 figure;
-imagesc([0:0.128:12],[1:12],20*log10(C+eps));
+imagesc([0:0.128:12],[1:12],chromagram);
 axis xy
 caxis(max(caxis)+[-60 0])
-title('Chromagram with Short Fast Fourier Trasnform (SFFT)')
+title('Chromagram with SFFT')
 set(gca,'YTickLabel',{' ' ' ' ' '  ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' '});
 
 %% Chroma Synthesis

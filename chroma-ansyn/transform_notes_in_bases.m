@@ -66,6 +66,13 @@ for time = 1:total_time
 	for note = 1:12
 		chromagram(note, time) = energy_notes_time_guitar(note, time);% + energy_notes_time_guitar(note + 12, time);
 	end
+	for note = 1:12
+		if chromagram(note, time) == max(chromagram(:, time))
+			chromagram(note, time) = max(chromagram(:, time));
+		else
+			chromagram(note, time) = 0;
+		end
+	end
 end
 
 % invert chromagram to plot
@@ -78,8 +85,27 @@ chromagram_guitar = chromagram;
 figure;
 %chromagram_inverse_notes = chromagram_inverse_notes(1:end, 1:end-3);
 imagesc([0:0.128:12],[1:12], chromagram_guitar);
-title('Chromagram With Convolution - Harmonics Acoustic Guitar')
+title('Chromagram With CCM - Acoustic Guitar')
 set(gca,'YTickLabel',{' ' ' ' ' '  ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' '});
+
+[rows, columns] = find(chromagram_guitar);
+row_not_repeated = [];
+number_row_not_repeated = 1;
+for number_row = 1:length(rows)-1
+	if rows(number_row) ~= rows(number_row + 1)
+		row_not_repeated(number_row_not_repeated) = rows(number_row);
+		number_row_not_repeated = number_row_not_repeated + 1;
+	end
+end
+rows = row_not_repeated(1:12);
+
+ ideal_sequence = [1 3 5 3 1 3 5 3 1 3 5 3];
+ideal_sequence = [12:-1:1];
+result = corrcoef(rows, ideal_sequence);
+percentual_hits_guitar = result(1,2)*100
+
+
+
 
 %-------------------------------------------------------------------------------
 % get energy notes from piano
@@ -108,6 +134,13 @@ chromagram(12, total_time) = 0;
 for time = 1:total_time
 	for note = 1:12
 		chromagram(note, time) = energy_notes_time_piano(note, time);% + energy_notes_time_piano(note + 12, time);
+		for note = 1:12
+			if chromagram(note, time) == max(chromagram(:, time))
+				chromagram(note, time) = max(chromagram(:, time));
+			else
+				chromagram(note, time) = 0;
+			end
+		end
 	end
 end
 
@@ -121,5 +154,19 @@ chromagram_piano = chromagram;
 figure;
 %chromagram_inverse_notes = chromagram_inverse_notes(1:end, 1:end-3);
 imagesc([0:0.128:12],[1:12], chromagram_piano);
-title('Chromagram With Convolution - Harmonics Piano')
+title('Chromagram With CCM - Piano')
 set(gca,'YTickLabel',{' ' ' ' ' '  ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' '});
+
+[rows, columns] = find(chromagram_piano);
+row_not_repeated = [];
+number_row_not_repeated = 1;
+for number_row = 1:length(rows)-1
+	if rows(number_row) ~= rows(number_row + 1)
+		row_not_repeated(number_row_not_repeated) = rows(number_row);
+		number_row_not_repeated = number_row_not_repeated + 1;
+	end
+end
+rows = row_not_repeated(1:12);
+ideal_sequence = [12:-1:1];
+result = corrcoef(rows, ideal_sequence);
+percentual_hits_piano = result(1,2)*100
