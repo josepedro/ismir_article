@@ -1,4 +1,244 @@
-% Example bibtex file for ISMIR Template
+
+
+% melodia SFFT mais filtros de particulas
+@inproceedings{jo2010melody,
+  title={Melody Extraction from Polyphonic Audio Based on Particle Filter.},
+  author={Jo, Seokhwan and Yoo, Chang D},
+  booktitle={ISMIR},
+  pages={357--362},
+  year={2010},
+  organization={Citeseer}
+}
+
+% melodia FFT
+@inproceedings{eggink2004extracting,
+  title={Extracting Melody Lines From Complex Audio.},
+  author={Eggink, Jana and Brown, Guy J},
+  booktitle={ISMIR},
+  year={2004}
+}
+
+% livro que fala de projecao em bases ortonormais (bom para desenvolvimento)
+@book{vaidyanathan1993multirate,
+  title={Multirate systems and filter banks},
+  author={Vaidyanathan, Parishwad P},
+  year={1993},
+  publisher={Pearson Education India}
+}
+
+% livro que fala da transformada de fourier e a projecao em bases ortonormais (bom para desenvolvimento)
+@book{cohen1995time,
+  title={Time-frequency analysis},
+  author={Cohen, Leon},
+  volume={1406},
+  year={1995},
+  publisher={Prentice Hall PTR Englewood Cliffs, NJ:}
+}
+
+% usa CQT e SFFT para extracao de melodias polifonicas
+@article{tangmelody,
+  title={MELODY EXTRACTION FROM POLYPHONIC AUDIO OF WESTERN OPERA: A METHOD BASED ON DETECTION OF THE SINGER’S FORMANT},
+  author={Tang, Zheng and Black, Dawn AA}
+}
+
+% esforço matematico para representacao da distribuicao temporal das notas
+@inproceedings{wakefield1999mathematical,
+  title={Mathematical representation of joint time-chroma distributions},
+  author={Wakefield, Gregory H},
+  booktitle={SPIE's International Symposium on Optical Science, Engineering, and Instrumentation},
+  pages={637--645},
+  year={1999},
+  organization={International Society for Optics and Photonics}
+}
+
+% extracao de melodia polifonal usando FFT
+@inproceedings{gomez2004automatic,
+  title={Automatic extraction of tonal metadata from polyphonic audio recordings},
+  author={G{\'o}mez, Emilia and Herrera, Perfecto},
+  booktitle={Proceedings of 25th International AES Conference, London},
+  year={2004}
+}
+
+% mais acorde um DFT-PCP
+@article{harte2009automatic,
+  title={Automatic chord recognition using quantised chroma and harmonic change segmentation},
+  author={Harte, Christopher and Sandler, Mark},
+  journal={MIREX Annual Music Information Rerieval eX-change. Available at http://www. music-ir. org/mirex/abstracts/2009/harte$\backslash$ \_mirex09. pdf},
+  year={2009},
+  publisher={Citeseer}
+}
+
+% mais acrode uma DFT-PCP
+@inproceedings{khadkevich2011time,
+  title={Time-frequency reassigned features for automatic chord recognition},
+  author={Khadkevich, Maksim and Omologo, Maurizio},
+  booktitle={Acoustics, Speech and Signal Processing (ICASSP), 2011 IEEE International Conference on},
+  pages={181--184},
+  year={2011},
+  organization={IEEE}
+}
+
+% aqui ele acrode fala DFT para a construcao de PCP e limitacoes	
+@phdthesis{harte2010towards,
+  title={Towards automatic extraction of harmony information from music signals},
+  author={Harte, Christopher},
+  year={2010},
+  school={Department of Electronic Engineering, Queen Mary, University of London}
+}
+
+
+% mais um trabalho de transcricao automatica de acordes usando o PCP-DFT.
+@inproceedings{peeters2006chroma,
+  title={Chroma-based estimation of musical key from audio-signal analysis.},
+  author={Peeters, Geoffroy},
+  booktitle={ISMIR},
+  pages={115--120},
+  year={2006}
+}
+
+% mais um trabalho de transcricao automatica de acordes usando o PCP-DFT. Aqui ele relata problemas na acuracia da DFT
+@inproceedings{cho2010exploring,
+  title={Exploring common variations in state of the art chord recognition systems},
+  author={Cho, Taemin and Weiss, Ron J and Bello, Juan Pablo},
+  booktitle={Proceedings of the Sound and Music Computing Conference (SMC)},
+  pages={1--8},
+  year={2010},
+  organization={Citeseer}
+}
+
+% o famoso trabalho de fujishima que postulou o PCP atraves da DFT. Nosso trabalho ira propor a substituição do PCP via DFT para CCM.
+@inproceedings{fujishima1999realtime,
+  title={Realtime chord recognition of musical sound: A system using common lisp music},
+  author={Fujishima, Takuya},
+  booktitle={Proc. ICMC},
+  volume={1999},
+  pages={464--467},
+  year={1999}
+}
+
+% mais um trabalho que usa os PCP (pitch class profile) para a transcricao de acordes usando a SFTT
+é Bom citar tambem o fujishima
+@inproceedings{lee2006automatic,
+  title={Automatic chord recognition from audio using enhanced pitch class profile},
+  author={Lee, Kyogu},
+  booktitle={Proc. of the International Computer Music Conference},
+  year={2006}
+}
+
+
+% trabalho sobre transcricao de acordes. O CCM poderia otimizar esse sistema participando do bloco de extracao de caracteristicas
+@inproceedings{de2012improving,
+  title={Improving Audio Chord Transcription by Exploiting Harmonic and Metric Knowledge.},
+  author={de Haas, Bas and Magalh{\~a}es, Jos{\'e} Pedro and Wiering, Frans},
+  booktitle={ISMIR},
+  pages={295--300},
+  year={2012},
+  organization={Citeseer}
+}
+
+% mais um trabalho sobre reconhecimento de acordes usando o PCP via SFFT
+@inproceedings{boulanger2013audio,
+  title={Audio Chord Recognition with Recurrent Neural Networks.},
+  author={Boulanger-Lewandowski, Nicolas and Bengio, Yoshua and Vincent, Pascal},
+  booktitle={ISMIR},
+  pages={335--340},
+  year={2013}
+}
+
+% o esforço e principal motivacao desse artigo para propor um metodo mais otimizado de reconhecimento de chroma feature. Nele ele propoe o NNLS eu vou propor uma nova forma de calcular o chroma feature que tbm pode ser usado o NNLS
+@inproceedings{mauch2010approximate,
+  title={Approximate Note Transcription for the Improved Identification of Difficult Chords.},
+  author={Mauch, Matthias and Dixon, Simon},
+  booktitle={ISMIR},
+  pages={135--140},
+  year={2010}
+}
+
+
+% outro trabalho que usa chroma feature de 60 posicoes via SFFT para transcricao automatica de acordes
+@inproceedings{chen2012chord,
+  title={Chord Recognition Using Duration-explicit Hidden Markov Models.},
+  author={Chen, Ruofeng and Shen, Weibin and Srinivasamurthy, Ajay and Chordia, Parag},
+  booktitle={ISMIR},
+  pages={445--450},
+  year={2012},
+  organization={Citeseer}
+}
+
+
+% mais um trabalho que usa DFT para montar o chroma feature para transcricao automatica de acordes
+@phdthesis{hrybyk2010combined,
+  title={Combined audio and video analysis for guitar chord identification},
+  author={Hrybyk, Alex},
+  year={2010},
+  school={Drexel University}
+}
+
+% Mais um trabalho que usa FFT para transcricao de melodia
+@inproceedings{barbancho2009transcription,
+  title={Transcription and expressiveness detection system for violin music},
+  author={Barbancho, Isabel and de la Bandera, Cristina and Barbancho, Ana M and Tardon, Lorenzo J},
+  booktitle={Acoustics, Speech and Signal Processing, 2009. ICASSP 2009. IEEE International Conference on},
+  pages={189--192},
+  year={2009},
+  organization={IEEE}
+}
+
+% Comentar que o trabalho é parecido com esse visto que ele compara tons de instrumentos com timbre com sinal, porem ele usa o MFCC.
+@inproceedings{uchida2011melody,
+  title={Melody and bass line estimation method using audio feature database},
+  author={Uchida, Yasunori and Wada, Shigeo},
+  booktitle={Signal Processing, Communications and Computing (ICSPCC), 2011 IEEE International Conference on},
+  pages={1--6},
+  year={2011},
+  organization={IEEE}
+}
+
+
+% Comentar que tal trabalho usou extracao via sinais senoidais e deu certo. O mesmo está feio aqui.	
+@inproceedings{bahatti2013sinusoidal,
+  title={Sinusoidal features extraction: Application to the analysis and synthesis of a musical signal},
+  author={Bahatti, Lhoussine and Rebbani, Ahmed and Bouattane, Omar},
+  booktitle={Intelligent Systems: Theories and Applications (SITA), 2013 8th International Conference on},
+  pages={1--6},
+  year={2013},
+  organization={IEEE}
+}
+
+
+% Comentar que é um trabalho parecido para identificação de 2 instrumentos usando analise tempo e frequencia
+@inproceedings{muto2002transcription,
+  title={Transcription system for music by two instruments},
+  author={Muto, Youhei and Tanaka, Toshiyuki},
+  booktitle={Signal Processing, 2002 6th International Conference on},
+  volume={2},
+  pages={1676--1679},
+  year={2002},
+  organization={IEEE}
+}
+
+
+% Comentar que é um trabalho muito parecido com o que estou fazendo exceto pelo fato do uso de filtros 	FIR de Wiener e uma analise estatistica no dominio da frequencia
+@inproceedings{fukayama2014modified,
+  title={A modified Wiener filter suitable for separation of individual instrumental sounds in monaural music signals},
+  author={Fukayama, Yukio},
+  booktitle={Norbert Wiener in the 21st Century (21CW), 2014 IEEE Conference on},
+  pages={1--4},
+  year={2014},
+  organization={IEEE}
+}
+
+
+% Fala sobre transcricao de melodia de uma flauta arabica usando a DFT. Pode citar ele falando do esforço empregado para transcricao de melodia	
+@inproceedings{al2008time,
+  title={Time-frequency analysis of the Arabian flute (Nay) tone applied to automatic music transcription},
+  author={Al-Taee, Majid A and Al-Rawi, Mohammad S and Al-Ghawanmeh, Fadi M},
+  booktitle={Computer Systems and Applications, 2008. AICCSA 2008. IEEE/ACS International Conference on},
+  pages={891--894},
+  year={2008},
+  organization={IEEE}
+}
+
 
 @online{LabROSA,
   author = {Columbia University LabROSA},

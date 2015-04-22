@@ -51,29 +51,28 @@ The abstract should be placed at the top left column and should contain about 15
 %
 \section{Introduction}\label{sec:introduction}
 
-	This template includes all the information about formatting manuscripts for the ISMIR \conferenceyear\ Conference.
-	Please follow these guidelines to give the final proceedings a uniform look.
-	Most of the required formatting is achieved automatically by using the supplied
-	style file (\LaTeX) or template (Word).
-	If you have any questions, please contact the Program Committee
-	(\texttt{ismir\conferenceyear-papers@ismir.net}).
-	This template can be downloaded from the ISMIR \conferenceyear\ web site (\texttt{http://ismir\conferenceyear.ismir.net}).
-	%
-	\section{Paper Length}
-	\textcolor{red}{The regulations for the maximal paper length have changed.}
-	Instead of the strict limit of six pages (as used for ISMIR 2014), we adopt 
-	a ``(6+1)-page policy'' for ISMIR 2015. This means, the paper may have a 
-	maximum of 6 pages for technical content including figures and possible references 
-	with one additional optional 7th page containing only references.
-	Note that this is a strict requirement. 
-	\textcolor{red}{The seventh page (if used at all) must
-	not contain any other material except for references.}
+% 1- problema
 
-\section{Short Fast Fourier Transform (SFFT)}\label{sec:sfft}
+	O processo de extracao de caracteristicas cromaticas eh um problema constante em solucoes de transcricao automatica de musica. Esse processo basicamente se da em processar um sinal de audio no dominio da frequencia, calcular o nivel de energia de cada nota corresponte a frequencia e somar as oitavas de cada uma das 12 notas. Tradicionalmente usa-se a transformada de fourier para tal tarefa desde meados de 1999 com Fujishima \cite{fujishima1999realtime} e, desde entao, varios esforcos sao empreendidos para otimizar o Pitch Class Profile (PCP) construido via transformada discreta de fourier (DFT) .
 
-	A transformada discreta de fourier (DFT ou  FFT) é muito utilizada para a construcao das caracteristicas cromaticas (chroma feature) do audio. A funcao dessa transformada eh traduzir informacoes que estao em dominio temporal para dominio frequencial de tal forma a projetar, em bases ortonormais, o valor de cada componente senoidal presente no sinal tratado. Essa projecao se da pelo somatorio do produto interno das senoides (exponenciais complexas) pelo sinal.
+% 2- Estudos que abordaram o problema
+	Varios estudos abordaram o problema de construcao de chroma feature em musicas. Tais estudos construiram solucoes embasadas em DFT ou STFT (Short Fast Fourier Transform) para idenficacao de melodias: \cite{muto2002transcription}, \cite{al2008time}, \cite{barbancho2009transcription}, \cite{gomez2004automatic}, \cite{tangmelody}, \cite{eggink2004extracting} e \cite{jo2010melody}, esse ultimo usando filtros particula para otimizacao. Ha tambem estudos de solucoes de chroma feature com foco em transcricao automcatica de acordes via DFT:
+	\cite{harte2009automatic}, \cite{khadkevich2011time}, \cite{harte2010towards}, \cite{peeters2006chroma}, \cite{cho2010exploring} \cite{lee2006automatic}, \cite{de2012improving}, \cite{boulanger2013audio}, \cite{chen2012chord} e \cite{hrybyk2010combined}.
 
-	Visto que essa transformada somente oferece informacoes em termos de frequencias, surgiu-se a necessidade de adapta-la para a visualizacao das variacoes das frequencias ao longo do tempo. Essa adaptacao se denomina transformada de fourier janelada (SFFT). Esse processo de janelamento se resume a dividir o sinal em partes, para serem analisadas individualmente no domínio da frequência, ou seja, a cada instante de tempo referente a cada trecho eh possivel obter uma analise frequencial.
+% 3- deficiencias nos estudos
+	Tais estudos focaram solucoes adapatadas em DFT e pouco se tem solucoes alternativas para caracterizacao de notas. Ha tambem varias limitacoes citadas da DFT em trabalhos como \cite{harte2010towards}. O estudo de Mauch\cite{mauch2010approximate} por exemplo foca a aplicacao de NNLS para aumentar a identificacao de notas e o trabalho \cite{wakefield1999mathematical} foca a modelagem matematica	para a representacao da distribuicao das notas em suas frequencias. Porem ha ainda a carencia de metodos alternativos em relacao a DFT para a construcao de chroma feature.
+
+% 4- importancia do estudo para o publico
+	O presente trabalho foca a apresentacao de um metodo alternativo e mais eficiente que a DFT, no que tange a identificacao das notas, para a construcao do chroma feature. A alternativa Chroma Convolution Method (CCM), que eh uma operacao essencialmente de dominio temporal, possui caracteristicas particulares que otimizam a distincao de notas e timbres de instrumentos musicais. O CCM pode ser usado no lugar da DFT ou STFT para extrair sons polifonicos com mais acuracia, identificando notas de diferentes instrumentos musicais.
+
+	Este paper esta organizado da seguinte forma: Section 2 descreve o usao, aspectos gerais e limitacoes da DFT; Section 3 apresenta a conceituacao do metodo proposto, caracteristicas e processo de construcao do chroma feature usando o CCM; Section 4 apresenta dois experimentos de comparacao dos metodos DFT e CCM; Section 5 delimita discussoes sobre os resultados da eficacia do CCM; Section 6 apresenta conclusoes e futuros trabalhos.
+
+\section{Discrete Fourier Transform (DFT)}\label{sec:sfft}
+
+		Um chroma feature ou um pitch class profile (PCP) têm sido usados quase exclusivamente como um front-end para o
+	reconhecimento de acordes ou sistemas de extracção de melodias de audio gravado. Fujishima \cite{fujishima1999realtime} desenvolveu um sistema de transcricao automatica de acordes em tempo real, onde ele deriva um chroma feature de 12 dimensoes a partir do DFT do sinal de áudio. Desde entao a transformada discreta de fourier (DFT ou  FFT) tem sido muito utilizada para a construcao das caracteristicas cromaticas (chroma feature) do audio. A funcao dessa transformada eh traduzir informacoes que estao em dominio temporal para dominio frequencial de tal forma a projetar, em bases ortonormais, o valor de cada componente senoidal presente no sinal tratado. Essa projecao se da pelo somatorio do produto interno das senoides (exponenciais complexas) pelo sinal \cite{vaidyanathan1993multirate}.
+
+	Visto que essa transformada somente oferece informacoes em termos de frequencias, surgiu-se a necessidade de adapta-la para a visualizacao das variacoes das frequencias ao longo do tempo. Essa adaptacao se denomina short time fourier transform (STFT) \cite{cohen1995time}. Esse processo de janelamento se resume a dividir o sinal em partes, para serem analisadas individualmente no domínio da frequência, ou seja, a cada instante de tempo referente a cada trecho eh possivel obter uma analise frequencial.
 
 	Porem essa tecnica possui as seguintes limitacoes:
 	\begin{itemize}
@@ -85,7 +84,7 @@ The abstract should be placed at the top left column and should contain about 15
 
 \section{Chroma Convolution Method (CCM)}\label{sec:ccm}
 
-	Em vista das limitações apresentadas da SFFT, foi desenvolvido um metodo no dominio do tempo que preserva as caracteristicas originais do sinal. O chroma convolution method (CCM) objetiva a projecao dos trechos do sinal sobre cada um dos sinais das notas musicais procuradas. Observa-se que quando o trecho do sinal eh projetado sobre o sinal de uma nota musical, atraves da convolucao, esta nota eh amplificada e as demais são suprimidas.
+	Em vista das limitações apresentadas da STFT, foi desenvolvido um metodo no dominio do tempo que preserva as caracteristicas originais do sinal. O chroma convolution method (CCM) objetiva a projecao dos trechos do sinal sobre cada um dos sinais das notas musicais procuradas. Observa-se que quando o trecho do sinal eh projetado sobre o sinal de uma nota musical, atraves da convolucao, esta nota eh amplificada e as demais são suprimidas.
 
 	Seja uma nota musical formada a partir de uma senoide monocromatica. Quando esse sinal eh convoluido com um trecho de sinal de audio eh possivel extrair como resultado o nivel de energia relacionado a esta frequencia. Tal energia eh mensurada a partir da seguinte equacao \eqnref{ccm_equation}:
 
@@ -114,7 +113,7 @@ The abstract should be placed at the top left column and should contain about 15
 
 \section{Experiments and Results}
 
-	Com o intuito de demonstrar a eficacia do CCM em relacao ao tradicional metodo SFFT\cite{LabROSA} no que diz respeito identificacao das notas tocadas a partir de suas caracteristicas cromaticas (chroma feature),  foram realizados 2 experimentos usando a linguagem de programacao MATLAB. Como entrada de dados usou-se sinais de audio gravados por instrumentos musicais reais\footnote{Code and files available in https://github.com/josepedro/ismir\_article.}. 
+	Com o intuito de demonstrar a eficacia do CCM em relacao ao tradicional metodo STFT\cite{LabROSA} no que diz respeito identificacao das notas tocadas a partir de suas caracteristicas cromaticas (chroma feature),  foram realizados 2 experimentos usando a linguagem de programacao MATLAB. Como entrada de dados usou-se sinais de audio gravados por instrumentos musicais reais\footnote{Code and files available in https://github.com/josepedro/ismir\_article.}. 
 
 	\subsection{Experiment 1: Identification of Musical Notes}
 
@@ -129,14 +128,14 @@ The abstract should be placed at the top left column and should contain about 15
 
 	Utilizou-se convolucao com 96 tons puros de diferentes frequencias para gerar o chroma feature. As janelas de ambas as propostas foram configuradas no tamanho de 0.120 segundos e a taxa de amostragem do audio foi de 44.1 kHz.
 
-	\subsubsection{SFFT Results}
-	Segue chroma feature encontrado utilizando o metodo tradicional da SFFT em \figref{fig:1-ssft}. Observa-se que a escala cromatica foi identificada, porem com erros em relacao ao momento exato em que as notas foram tocadas. Nota-se, por exemplo, que uma nota E foi identificada no comeco quando na verdade deveria ter sido identificada nos instantes proximos de 7 segundos.
+	\subsubsection{STFT Results}
+	Segue chroma feature encontrado utilizando o metodo tradicional da STFT em \figref{fig:1-ssft}. Observa-se que a escala cromatica foi identificada, porem com erros em relacao ao momento exato em que as notas foram tocadas. Nota-se, por exemplo, que uma nota E foi identificada no comeco quando na verdade deveria ter sido identificada nos instantes proximos de 7 segundos.
 
 	
 	\begin{figure}[h]
 	 \centerline{\framebox{
 	 \includegraphics[width=\columnwidth]{figs/1-sfft.png}}}
-	 \caption{Chroma feature of audio using SFFT.}
+	 \caption{Chroma feature of audio using STFT.}
 	 \label{fig:1-ssft}
 	\end{figure}	
 
@@ -233,13 +232,13 @@ The abstract should be placed at the top left column and should contain about 15
 
 Utilizou-se convolucao com 12 tons de violao e 12 tons de piano de diferentes frequencias gerando dois chroma feature respectivamente, um para cada instrumento. As janelas de ambas as propostas foram configuradas no tamanho de 0.120 segundos e a taxa de amostragem do audio foi de 44.1 kHz.
 
-	\subsubsection{SFFT Results}
-	Segue chroma feature encontrado utilizando o metodo tradicional da SFFT:
+	\subsubsection{STFT Results}
+	Segue chroma feature encontrado utilizando o metodo tradicional da STFT:
 	
 	\begin{figure}[h]
 	 \centerline{\framebox{
 	 \includegraphics[width=\columnwidth]{figs/2-sfft.png}}}
-	 \caption{Chroma feature of audio using SFFT.}
+	 \caption{Chroma feature of audio using STFT.}
 	 \label{fig:2-ssft}
 	\end{figure}	
 
@@ -356,24 +355,24 @@ Segue chroma feature encontrado utilizando o CCM de tons de violao:
 
 \section{Discussion}\label{sec:discussion}
 
-	Em vista dos resultados alcancados, ha limitacao e beneficios no uso da convolucao em relacao a transformada de fourier janelada. Uma limitacao encontrada foi o tempo de processamento que no metodo da SFFT foi de 0.100138 segundos enquanto no CCM foi de 13.266711 segundos para o primeiro experimento.
+	Em vista dos resultados alcancados, ha limitacao e beneficios no uso da convolucao em relacao a transformada de fourier janelada. Uma limitacao encontrada foi o tempo de processamento que no metodo da STFT foi de 0.100138 segundos enquanto no CCM foi de 13.266711 segundos para o primeiro experimento.
 
-	Do ponto de vista dos beneficios, o primeiro experimento mostra que o CCM eh mais eficiente do que o SFFT para caracterizacao de notas. O SFFT obteve um rendimento de 64.2857\% enquanto que o CCM obteve 92.8571\%, ocasionando em 28.5714\% a mais de notas identificadas com o CCM. Tal fato se deve pela reducao de ruidos e intensificacao das frequências sonoras realmente gravadas pelo instrumento musical. 
+	Do ponto de vista dos beneficios, o primeiro experimento mostra que o CCM eh mais eficiente do que o STFT para caracterizacao de notas. O STFT obteve um rendimento de 64.2857\% enquanto que o CCM obteve 92.8571\%, ocasionando em 28.5714\% a mais de notas identificadas com o CCM. Tal fato se deve pela reducao de ruidos e intensificacao das frequências sonoras realmente gravadas pelo instrumento musical. 
 
-	Do segundo experimento observa-se um beneficio muito importante no uso do CCM, a possibilidade de distinguir instrumentos musicais tocados juntos. Alem da SFFT nao possuir a possibilidade de geracao de um chroma feature para cada instrumento, ela gerou resultados baixos em comparacao com CCM na identificacao das melodias do piano (38.7096\%) e violao (3.2258\%).
+	Do segundo experimento observa-se um beneficio muito importante no uso do CCM, a possibilidade de distinguir instrumentos musicais tocados juntos. Alem da STFT nao possuir a possibilidade de geracao de um chroma feature para cada instrumento, ela gerou resultados baixos em comparacao com CCM na identificacao das melodias do piano (38.7096\%) e violao (3.2258\%).
 
-	Usando o CCM gerou-se, para cada instrumento, um chroma feature. O chroma feature do piano possuiu identificacao de 72.2222\% de notas de melodia de piano e 27.7777\% de melodia de violao. Esse fato demonstra que o chroma feature do piano realmente destaca as suas notas de timbre caracteristico. O chroma feature do violao tambem possuiu tal capacidade com 47.3684\% de fidelidade para melodia do violao e 10.5263\% para melodia de piano. Eh notavel que o CCM possui um potencial maior de identificacao que o SFFT para ambos instrumentos alem de destacar mais diferentes instrumentos.
+	Usando o CCM gerou-se, para cada instrumento, um chroma feature. O chroma feature do piano possuiu identificacao de 72.2222\% de notas de melodia de piano e 27.7777\% de melodia de violao. Esse fato demonstra que o chroma feature do piano realmente destaca as suas notas de timbre caracteristico. O chroma feature do violao tambem possuiu tal capacidade com 47.3684\% de fidelidade para melodia do violao e 10.5263\% para melodia de piano. Eh notavel que o CCM possui um potencial maior de identificacao que o STFT para ambos instrumentos alem de destacar mais diferentes instrumentos.
 
 
 	\section{Conclusions and Future Works}\label{sec:conclusions}
 
-	Em vista do que foi proposto, foi apresentado uma nova forma de construcao da chroma feature usando o chroma convolution method (CCM). Comparou-se o metodo proposto com o tradicional SFFT e o CCM mostrou-se mais satisfatorio. 
+	Em vista do que foi proposto, foi apresentado uma nova forma de construcao da chroma feature usando o chroma convolution method (CCM). Comparou-se o metodo proposto com o tradicional STFT e o CCM mostrou-se mais satisfatorio. 
 
-	A eficiencia do CCM frente ao SFFT nao foi somente pela deteccao de melodias monofonicas, mas tambem pela identificacao de melodias polifonicas com mais de um instrumento. O CCM possui a capacidade diferencial de trabalhar com timbres de instrumentos musicais para a dinstincao dos mesmos no audio.
+	A eficiencia do CCM frente ao STFT nao foi somente pela deteccao de melodias monofonicas, mas tambem pela identificacao de melodias polifonicas com mais de um instrumento. O CCM possui a capacidade diferencial de trabalhar com timbres de instrumentos musicais para a dinstincao dos mesmos no audio.
 
-	 Pode-se concluir que melhorias que foram feitas na forma simples da SFFT em trabalhos correlatos podem ser aplicadas no CCM, aumentando assim seu potencial. Tambem eh de significativa importancia demonstrar a otimizacao dos resultados de sistemas de transcricao automatica de acordes usando o CCM.
+	 Pode-se concluir que melhorias que foram feitas na forma simples da STFT em trabalhos correlatos podem ser aplicadas no CCM, aumentando assim seu potencial. Tambem eh de significativa importancia demonstrar a otimizacao dos resultados de sistemas de transcricao automatica de acordes usando o CCM.
 
-	Assim como ocorre na SFFT, é plausivel de implementacao de um pre-processamento de sinal utilizando filtros no CCM para a caracterizacao de instrumentos em audios mais complexos como o de uma banda ou orquestra.
+	Assim como é recorrente com o uso da STFT, é plausivel de implementacao de filtros para redução de ruido e equalização no CCM, pois tais resultados expostos nao possuem nenhum tipo de pre-processamento de audio. Eh passivel de ressaltar que outros estudos comparativos devem ser feitos para conhecer e estabelecer as limitacoes e a eficacia do CCM.
 
 
 
