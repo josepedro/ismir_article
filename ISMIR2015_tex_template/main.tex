@@ -53,7 +53,7 @@ The abstract should be placed at the top left column and should contain about 15
 
 % 1- problema
 
-	O processo de extracao de caracteristicas cromaticas eh um problema constante em solucoes de transcricao automatica de musica. Esse processo basicamente se da em processar um sinal de audio no dominio da frequencia, calcular o nivel de energia de cada nota corresponte a frequencia e somar as oitavas de cada uma das 12 notas. Tradicionalmente usa-se a transformada de fourier para tal tarefa desde meados de 1999 com Fujishima \cite{fujishima1999realtime} e, desde entao, varios esforcos sao empreendidos para otimizar o Pitch Class Profile (PCP) construido via transformada discreta de fourier (DFT) .
+	O processo de extracao de caracteristicas cromaticas eh um problema constante em solucoes de transcricao automatica de musica. Basicamente este processo consiste em obter o espectro de frequencias do sinal de audio, calcular o nivel de energia de cada nota corresponte a frequencia de cada uma das 12 notas musicais que compoem a escala temperada. Tradicionalmente usa-se a transformada de fourier para tal tarefa desde meados de 1999 com Fujishima \cite{fujishima1999realtime} e, desde entao, varios esforcos sao empreendidos para otimizar o Pitch Class Profile (PCP) construido via transformada discreta de fourier (DFT) .
 
 % 2- Estudos que abordaram o problema
 	Varios estudos abordaram o problema de construcao de chroma feature em musicas. Tais estudos construiram solucoes embasadas em DFT ou STFT (Short Fast Fourier Transform) para idenficacao de melodias: \cite{muto2002transcription}, \cite{al2008time}, \cite{barbancho2009transcription}, \cite{gomez2004automatic}, \cite{tangmelody}, \cite{eggink2004extracting} e \cite{jo2010melody}, esse ultimo usando filtros particula para otimizacao. Ha tambem estudos de solucoes de chroma feature com foco em transcricao automcatica de acordes via DFT:
@@ -81,10 +81,11 @@ The abstract should be placed at the top left column and should contain about 15
 		\item dificuldades na determinacao do tamanho da janela pois trata-se de um parametro de amostragem que pode limitar a banda de frequencia a ser analisada.
 	\end{itemize}
 
+	Observa-se que as limitacoes apresentadas sao, em grande parte, oriundas do processamento digital de sinais necessario para a constituicao do espectro de frequencias. Deste modo, surge a necessidade de se pesquisar alternativas para o problema de construcao do chroma feature no dominio do tempo, preservando assim as caracteristicas originais do sinal de audio.
 
 \section{Chroma Convolution Method (CCM)}\label{sec:ccm}
 
-	Em vista das limitacoes apresentadas da DFT ou STFT, foi desenvolvido um metodo no dominio do tempo que preserva as caracteristicas originais do sinal. O chroma convolution method (CCM) objetiva a projecao dos trechos do sinal sobre cada um dos sinais das notas musicais procuradas. Observa-se que quando o trecho do sinal eh projetado sobre o sinal de uma nota musical, atraves da convolucao, esta nota eh amplificada e as demais sao suprimidas.
+	O chroma convolution method (CCM) objetiva a projecao dos trechos do sinal sobre cada um dos sinais das notas musicais procuradas. Observa-se que quando o trecho do sinal eh projetado sobre o sinal de uma nota musical, atraves da convolucao, esta nota eh amplificada e as demais sao suprimidas.
 
 	Seja uma nota musical formada a partir de uma senoide monocromatica. Quando esse sinal eh convoluido com um trecho de sinal de audio eh possivel extrair como resultado o nivel de energia relacionado a esta frequencia. Tal energia eh mensurada a partir da seguinte equacao \eqnref{ccm_equation}:
 
@@ -98,10 +99,18 @@ The abstract should be placed at the top left column and should contain about 15
 		\item funcoes senoidais monocromaticas foram utilizadas para construir notas musicais no dominio do tempo, correspondendo a escala cromatica musical; 
 		\item convoluiu-se cada parte do sinal de audio com as notas musicais;
 		\item a energia da convolucao foi extraida a partir da equacao \eqnref{ccm_equation};
-		\item por fim cada energia foi somada com suas respectivas oitavas, originando o chroma feature.
+		\item por fim cada energia foi somada com suas respectivas oitavas, originando o chroma feature, esquematicamente apresentado na \figref{fig:chroma_feature}:
+
+		\begin{figure}[h]
+		 \centerline{\framebox{
+		 \includegraphics[width=\columnwidth, height=6cm]{figs/chroma_feature.png}}}
+		 \caption{Schematic representation of the chroma feature. On this chart, a full chromatic scale starting from A up to G\#.}
+		 \label{fig:chroma_feature}
+		\end{figure}
+
 	\end{enumerate}
 
-	A figura abaixo representa uma visao esquematica do procedimento descrito. Ao final do processo as caracteristicas cromaticas (chroma feature) podem ser visualizadas a partir de um espectrograma de 12 dimensoes.
+	A \figref{fig:schematic} representa uma visao esquematica do procedimento descrito. Ao final do processo as caracteristicas cromaticas (chroma feature) podem ser visualizadas a partir de um espectrograma de 12 dimensoes.
 
 	\begin{figure}[h]
 	 \centerline{\framebox{
@@ -113,7 +122,7 @@ The abstract should be placed at the top left column and should contain about 15
 
 \section{Experiments and Results}
 
-	Com o intuito de demonstrar a eficacia do CCM em relacao ao tradicional metodo STFT\cite{LabROSA} no que diz respeito identificacao das notas tocadas a partir de suas caracteristicas cromaticas (chroma feature),  foram realizados 2 experimentos usando a linguagem de programacao MATLAB. Como entrada de dados usou-se sinais de audio gravados por instrumentos musicais reais\footnote{Code and files available in https://github.com/josepedro/ismir\_article.}. 
+	Com o intuito de demonstrar a eficacia do CCM em relacao ao tradicional metodo STFT\cite{LabROSA}, no que diz respeito identificacao das notas tocadas a partir de suas caracteristicas cromaticas (chroma feature), foram realizados 2 experimentos usando a linguagem de programacao MATLAB. Como entrada de dados usou-se sinais de audio gravados por instrumentos musicais reais\footnote{Code and files available in https://github.com/josepedro/ismir\_article.}. 
 
 	\subsection{Experiment 1: Identification of Musical Notes}
 
@@ -122,7 +131,7 @@ The abstract should be placed at the top left column and should contain about 15
 	\begin{figure}[h]
 	 \centerline{\framebox{
 	 \includegraphics[width=\columnwidth]{figs/1-notes.png}}}
-	 \caption{Notes that were played and recorded on piano.}
+	 \caption{Recorded notes played on piano.}
 	 \label{fig:1-notes}
 	\end{figure}
 
@@ -135,7 +144,7 @@ The abstract should be placed at the top left column and should contain about 15
 	\begin{figure}[h]
 	 \centerline{\framebox{
 	 \includegraphics[width=\columnwidth]{figs/1-sfft.png}}}
-	 \caption{Chroma feature of audio using STFT.}
+	 \caption{Obtained chroma feature by using the STFT method.}
 	 \label{fig:1-ssft}
 	\end{figure}	
 
@@ -165,11 +174,11 @@ The abstract should be placed at the top left column and should contain about 15
 	  \hline
 	 \end{tabular}
 	\end{center}
-	 \caption{Comparison between played notes and identified notes.}
+	 \caption{Comparison between played and identified notes by the STFT method.}
 	 \label{tab:table-1-sfft}
 	\end{table}
 
-	Dado os dados da tabela \tabref{tab:table-1-sfft}, houve 9 de 14 notas tocadas em instantes corretos, ou seja, 64.2857\% de fidelidade com a melodia original.
+	Dado os dados da tabela \tabref{tab:table-1-sfft}, houve 9 de 14 notas tocadas em instantes corretos, ou seja, 64.3\% de fidelidade com a melodia original.
 
 
 	\subsubsection{CCM Results}
@@ -178,7 +187,7 @@ The abstract should be placed at the top left column and should contain about 15
 	\begin{figure}[h]
 	 \centerline{\framebox{
 	 \includegraphics[width=\columnwidth]{figs/1-ccm.png}}}
-	 \caption{Chroma feature of audio using CCM.}
+	 \caption{Obtained chroma feature by using the Chroma Convolution method.}
 	 \label{fig:1-ccm}
 	\end{figure}	
 
@@ -212,7 +221,7 @@ The abstract should be placed at the top left column and should contain about 15
 	 \label{tab:table-1-ccm}
 	\end{table}
 
-	Em vista dos resultados de \tabref{tab:table-1-ccm}, houve 13 de 14 notas tocadas em instantes corretos, ou seja, 92.8571\% de fidelidade com a melodia original.
+	Em vista dos resultados de \tabref{tab:table-1-ccm}, houve 13 de 14 notas tocadas em instantes corretos, ou seja, 92.9\% de fidelidade com a melodia original.
 
 
 	\subsection{Experiment 2: Identification of Musical Notes of Different Instruments}
@@ -255,7 +264,7 @@ Utilizou-se convolucao com 12 tons de violao e 12 tons de piano de diferentes fr
 	 \label{tab:table-2-sfft}
 	\end{table}
 
-	Segundo os dados da tabela \tabref{tab:table-2-sfft}, houve 12 de 31 notas de piano tocadas em instantes corretos, ou seja, 38.7096\% de fidelidade com a melodia original do piano. Quanto ao violao, somente 1 nota foi tocada em instante certo, ou seja, 3.2258\% de fidelidade com a melodia original do violao.
+	Primeiramente eh importante ressaltar que nao eh possivel obter um chroma feature para cada instrumento usando o metodo STFT. Deste modo, utilizando a estrategia da maxima intensidade a cada instante de tempo, so foi possivel obter um valor de eficiencia global em torno de 38.7\%, ou seja, a cada instante de tempo uma nota das duas notas tocadas pelos instrumentos, piano e violao, deveria ter sido identificada. Os resultados dessa analise se encontram em \tabref{tab:table-2-sfft}.
 
 %-------------------------------------------------------------------
 	\subsubsection{CCM Results}
@@ -268,7 +277,7 @@ Utilizou-se convolucao com 12 tons de violao e 12 tons de piano de diferentes fr
 	 \label{fig:2-ccm-piano}
 	\end{figure}	
 
-	Observa-se na figura \figref{fig:2-ccm-piano} que a melodia apresentou uma maior clareza. Eh visivel tambem a escala cromatica tocada pelo piano e algumas poucas notas do violao. Uma tabela comparativa das notas tocadas identificadas foi feita tambem atraves da estrategia dos maximos:
+	Observa-se na figura \figref{fig:2-ccm-piano} que a melodia executada no piano foi identificada com maior clareza. Sao visiveis tambem algumas notas executadas no violao. Uma tabela comparativa das notas tocadas identificadas foi feita tambem atraves da estrategia dos maximos:
 
 	\begin{table}[h]
 	 \begin{center}
@@ -302,7 +311,7 @@ Utilizou-se convolucao com 12 tons de violao e 12 tons de piano de diferentes fr
 	\end{table}
 
 	
-	Em vista dos resultados de \tabref{tab:table-2-ccm-piano}, houve 13 de 18 notas de piano em instantes corretos, ou seja, 72.2222\% de fidelidade com a melodia original. Quanto ao violao, houve 5 de 18 notas em instantes corretos, ocasionando em 27.7777\%. Tal resultado mostra que o CCM usando tons de piano realmente amplificou as suas notas e suprimiu as do violao.
+	Em vista dos resultados de \tabref{tab:table-2-ccm-piano}, houveram 13 de 18 notas de piano em instantes corretos, ou seja, 72.2\% de fidelidade com a melodia original. Quanto ao violao, houveram 5 de 18 notas em instantes corretos, ocasionando em 27.7\%. Tal resultado mostra que neste experimento o CCM amplificou as notas executadas pelo piano e suprimiu as notas executadas pelo violao.
 
 
 
@@ -315,7 +324,7 @@ Segue chroma feature encontrado utilizando o CCM de tons de violao:
 	 \label{fig:2-ccm-violao}
 	\end{figure}	
 
-	Observa-se na figura \figref{fig:2-ccm-violao} que a melodia apresentou uma maior clareza. Eh visivel tambem a escala cromatica tocada pelo piano suprimida e as notas do violao amplificadas. Uma tabela comparativa das notas tocadas e identificadas foi feita tambem atraves da estrategia dos maximos:
+	Observa-se na figura \figref{fig:2-ccm-violao} que a melodia executada pelo violao tambem foi identificada com maior clareza. Sao visiveis tambem algumas notas da escala cromatica executada no piano, que ficaram, em contraste com o resultado apresentado pela \figref{fig:2-ccm-piano}, suprimidas. Uma tabela comparativa das notas tocadas e identificadas foi feita tambem atraves da estrategia dos maximos:
 
 	\begin{table}[h]
 	 \begin{center}
@@ -350,31 +359,27 @@ Segue chroma feature encontrado utilizando o CCM de tons de violao:
 	\end{table}
 
 	\newpage
-	Em vista dos resultados de \tabref{tab:table-2-ccm-violao}, houve 9 de 19 notas de violao em instantes corretos, ou seja, 47.3684\% de fidelidade com a melodia original. Quanto ao piano, houve 2 de 19 notas em instantes corretos, ocasionando em 10.5263\%. Tal resultado mostra que o CCM usando tons de violao realmente amplificou as suas notas e suprimiu as do piano.
+	Em vista dos resultados de \tabref{tab:table-2-ccm-violao}, houveram 9 de 19 notas executadas no violao identificadas corretamente, ou seja, 47.4\% de fidelidade com a melodia original. Quanto ao piano, houveram 2 de 19 notas identificadas corretamente, ocasionando em 10.5\%.
 
 
 \section{Discussion}\label{sec:discussion}
 
-	Em vista dos resultados alcancados, ha limitacao e beneficios no uso da convolucao em relacao a transformada de fourier janelada. Uma limitacao encontrada foi o tempo de processamento que no metodo da STFT foi de 0.100138 segundos enquanto no CCM foi de 13.266711 segundos para o primeiro experimento.
+	Os resultados alcancados pelo CCM se apresentam mais satisfatorios do que o metodo tradicional STFT, porem com um maior custo computacional agregado aos calculos. O tempo de processamento do metodo da STFT foi de aproximadamente 0.1 segundos contra 13.2 segundos do CCM, no primeiro experimento. Ressalta-se que o elevado custo computacional do CCM nao representa uma limitacao em termos praticos pois o metodo pode ser executado, sem grandes dificuldades, por um computador pessoal.
 
-	Do ponto de vista dos beneficios, o primeiro experimento mostra que o CCM eh mais eficiente do que o STFT para caracterizacao de notas. O STFT obteve um rendimento de 64.2857\% enquanto que o CCM obteve 92.8571\%, ocasionando em 28.5714\% a mais de notas identificadas com o CCM. Tal fato se deve pela reducao de ruidos e intensificacao das frequências sonoras realmente gravadas pelo instrumento musical. 
+	No primeiro experimento, o CCM apresentou uma melhora na eficiencia de aproximadamente 28.6\% em relacao ao metodo tradicional STFT. De certa forma o CCM valoriza a energia das notas que tenham correlacao com o sinal de referencia, o que favorece a identificacao. Outro ponto importante eh o fato de o CCM suprimir quais informacoes do sinal que nao estejam correlacionadas com os sinais de referencia utilizados na convolucao. 
 
-	Do segundo experimento observa-se um beneficio muito importante no uso do CCM, a possibilidade de distinguir instrumentos musicais tocados juntos. Alem da STFT nao possuir a possibilidade de geracao de um chroma feature para cada instrumento, ela gerou resultados baixos em comparacao com CCM na identificacao das melodias do piano (38.7096\%) e violao (3.2258\%).
-
-	Usando o CCM gerou-se, para cada instrumento, um chroma feature. O chroma feature do piano possuiu identificacao de 72.2222\% de notas de melodia de piano e 27.7777\% de melodia de violao. Esse fato demonstra que o chroma feature do piano realmente destaca as suas notas de timbre caracteristico. O chroma feature do violao tambem possuiu tal capacidade com 47.3684\% de fidelidade para melodia do violao e 10.5263\% para melodia de piano. Eh notavel que o CCM possui um potencial maior de identificacao que o STFT para ambos instrumentos alem de destacar mais diferentes instrumentos.
+	Outro aspecto importante eh a possibilidade, oferecida pelo CCM, de focar a atencao num instrumento especifico a partir da utilizacao de seu timbre, sem custos adicionais para o algoritmo. Notas de referencia gravadas no piano foram melhor identificadas no experimento 2 pois as notas do violao foram suprimidas. O resultado inverso foi observado quando o mesmo sinal de audio foi submetido aos sinais de referencia produzidos pelo violao. A ordem de grandeza das diferencas encontradas para a identificacao das notas privilegiadas pelos sinais de referencia em relacao as notas suprimidas foi da ordem de 40.7\%, em media. O metodo tradicional STFT nao oferece essa possibilidade a menos que otimizacoes sejam praticadas no sentido de considerar o timbre dos instrumentos de uma maneira similar.
 
 
 	\section{Conclusions and Future Works}\label{sec:conclusions}
 
-	Em vista do que foi proposto, foi apresentado uma nova forma de construcao da chroma feature ou PCP usando o chroma convolution method (CCM). Comparou-se o metodo proposto com o tradicional STFT e o CCM mostrou-se mais satisfatorio. 
+	Este trabalho apresentou uma nova forma de contrucao do chroma feature ou PCP, a partir da utilizacao de um novo metodo, aqui denominado por chroma convolution method (CCM). Os resultados obtidos foram confrontados com o algoritmo tradicional STFT revelando uma melhor eficiencia do CCM na identificacao das notas musicais.
 
-	A eficiencia do CCM frente ao STFT nao foi somente pela deteccao de melodias monofonicas, mas tambem pela identificacao de melodias polifonicas com mais de um instrumento. O CCM possui a capacidade diferencial de trabalhar com timbres de instrumentos musicais para a dinstincao dos mesmos no audio.
+	Outra vantagem encontrada para o CCM, em relacao ao metodo tradicional STFT, diz respeito a deteccao de melodias polifonicas, produzidas por mais de um instrumento. O CCM opera com sinais de referencia, para as notas musicais a serem identificadas, que podem ser obtidas de instrumentos reais, fato que, naturalmente, inclui informacoes de timbre na identificacao.
 
-	 Pode-se concluir que melhorias feitas na forma simples da STFT em trabalhos correlatos podem ser aplicadas no CCM, aumentando assim seu potencial. Tambem eh de significativa importancia demonstrar a otimizacao dos resultados de sistemas de transcricao automatica de acordes usando o CCM.
-
-	Assim como eh recorrente com o uso da STFT, eh plausivel de implementacao filtros para reducao de ruido e equalizacao no CCM, pois tais resultados expostos nao possuem nenhum tipo de pre-processamento de audio. Eh passivel de ressaltar que outros estudos comparativos devem ser feitos para consolidar as limitacoes e eficacia do CCM frente a outras formas otimizadas do DFT ou STFT.		
-
-
+	Este trabalho apresentou uma maneira padrao e basica de utilizacao do CCM, sem quaisquer procedimentos elaborados para reducao de ruido no processo de identificacao das notas. Da mesma forma que o metodo tradicional STFT vem sendo desenvolvido para aplicacoes mais sofisticadas, como o NNLS \cite{mauch2010approximate} e filtro de particulas \cite{jo2010melody}, o metodo CCM pode ser aprimorado para que melhores resultados sejam alcancados.
+	
+	Vale ressaltar que o CCM e o metodo STFT foram aqui comparados em suas aplicacoes basicas, ou seja, muito se tem para fazer em relacao a aplicacao do CCM sobre a identificacao de acordes e melodias polifonicas, considerando o grande volume e a qualidade dos trabalhos ja produzidos pelas solucoes tradicionais no dominio da frequencia.	
 
 
 % For bibtex users:
