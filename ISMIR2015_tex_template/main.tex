@@ -356,23 +356,26 @@ Segue chroma feature encontrado utilizando o CCM de tons de violao:
 
 \section{Discussion}\label{sec:discussion}
 
-	This template includes all the information about formatting manuscripts for the ISMIR \conferenceyear\ Conference.
-	Please follow these guidelines to give the final proceedings a uniform look.
-	Most of the required formatting is achieved automatically by using the supplied
-	style file (\LaTeX) or template (Word).
-	If you have any questions, please contact the Program Committee
-	(\texttt{ismir\conferenceyear-papers@ismir.net}).
-	This template can be downloaded from the ISMIR \conferenceyear\ web site (\texttt{http://ismir\conferenceyear.ismir.net}).
-	%
-	\section{Paper Length}
-	\textcolor{red}{The regulations for the maximal paper length have changed.}
-	Instead of the strict limit of six pages (as used for ISMIR 2014), we adopt 
-	a ``(6+1)-page policy'' for ISMIR 2015. This means, the paper may have a 
-	maximum of 6 pages for technical content including figures and possible references 
-	with one additional optional 7th page containing only references.
-	Note that this is a strict requirement. 
-	\textcolor{red}{The seventh page (if used at all) must
-	not contain any other material except for references.}
+	Em vista dos resultados alcancados, ha limitacao e beneficios no uso da convolucao em relacao a transformada de fourier janelada. Uma limitacao encontrada foi o tempo de processamento que no metodo da SFFT foi de 0.100138 segundos enquanto no CCM foi de 13.266711 segundos para o primeiro experimento.
+
+	Do ponto de vista dos beneficios, o primeiro experimento mostra que o CCM eh mais eficiente do que o SFFT para caracterizacao de notas. O SFFT obteve um rendimento de 64.2857\% enquanto que o CCM obteve 92.8571\%, ocasionando em 28.5714\% a mais de notas identificadas com o CCM. Tal fato se deve pela reducao de ruidos e intensificacao das frequências sonoras realmente gravadas pelo instrumento musical. 
+
+	Do segundo experimento observa-se um beneficio muito importante no uso do CCM, a possibilidade de distinguir instrumentos musicais tocados juntos. Alem da SFFT nao possuir a possibilidade de geracao de um chroma feature para cada instrumento, ela gerou resultados baixos em comparacao com CCM na identificacao das melodias do piano (38.7096\%) e violao (3.2258\%).
+
+	Usando o CCM gerou-se, para cada instrumento, um chroma feature. O chroma feature do piano possuiu identificacao de 72.2222\% de notas de melodia de piano e 27.7777\% de melodia de violao. Esse fato demonstra que o chroma feature do piano realmente destaca as suas notas de timbre caracteristico. O chroma feature do violao tambem possuiu tal capacidade com 47.3684\% de fidelidade para melodia do violao e 10.5263\% para melodia de piano. Eh notavel que o CCM possui um potencial maior de identificacao que o SFFT para ambos instrumentos alem de destacar mais diferentes instrumentos.
+
+
+	\section{Conclusions and Future Works}\label{sec:conclusions}
+
+	Em vista do que foi proposto, foi apresentado uma nova forma de construcao da chroma feature usando o chroma convolution method (CCM). Comparou-se o metodo proposto com o tradicional SFFT e o CCM mostrou-se mais satisfatorio. 
+
+	A eficiencia do CCM frente ao SFFT nao foi somente pela deteccao de melodias monofonicas, mas tambem pela identificacao de melodias polifonicas com mais de um instrumento. O CCM possui a capacidade diferencial de trabalhar com timbres de instrumentos musicais para a dinstincao dos mesmos no audio.
+
+	 Pode-se concluir que melhorias que foram feitas na forma simples da SFFT em trabalhos correlatos podem ser aplicadas no CCM, aumentando assim seu potencial. Tambem eh de significativa importancia demonstrar a otimizacao dos resultados de sistemas de transcricao automatica de acordes usando o CCM.
+
+	Assim como ocorre na SFFT, é plausivel de implementacao de um pre-processamento de sinal utilizando filtros no CCM para a caracterizacao de instrumentos em audios mais complexos como o de uma banda ou orquestra.
+
+
 
 
 % For bibtex users:
