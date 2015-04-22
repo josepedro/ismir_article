@@ -114,7 +114,7 @@ The abstract should be placed at the top left column and should contain about 15
 
 \section{Experiments and Results}
 
-	Com o intuito de demonstrar a eficacia do CCM em relacao ao tradicional metodo SFFT\cite{LabROSA} no que diz respeito identificacao das notas tocadas a partir de suas caracteristicas cromaticas (chroma feature),  foram realizados 2 experimentos usando a linguagem de programacao MATLAB. Como entrada de dados usou-se sinais de audio gravados por instrumentos musicais reais\footnote{code and files available in https://github.com/josepedro/ismir\_article.}. 
+	Com o intuito de demonstrar a eficacia do CCM em relacao ao tradicional metodo SFFT\cite{LabROSA} no que diz respeito identificacao das notas tocadas a partir de suas caracteristicas cromaticas (chroma feature),  foram realizados 2 experimentos usando a linguagem de programacao MATLAB. Como entrada de dados usou-se sinais de audio gravados por instrumentos musicais reais\footnote{Code and files available in https://github.com/josepedro/ismir\_article.}. 
 
 	\subsection{Experiment 1: Identification of Musical Notes}
 
@@ -258,49 +258,121 @@ Utilizou-se convolucao com 12 tons de violao e 12 tons de piano de diferentes fr
 
 	Segundo os dados da tabela \tabref{tab:table-2-sfft}, houve 12 de 31 notas de piano tocadas em instantes corretos, ou seja, 38.7096\% de fidelidade com a melodia original do piano. Quanto ao violao, somente 1 nota foi tocada em instante certo, ou seja, 3.2258\% de fidelidade com a melodia original do violao.
 
-
+%-------------------------------------------------------------------
 	\subsubsection{CCM Results}
-	Segue chroma feature encontrado utilizando o CCM usando convolucao de tons de piano:
+	Segue chroma feature encontrado utilizando o CCM de tons de piano:
 	
 	\begin{figure}[h]
 	 \centerline{\framebox{
-	 \includegraphics[width=\columnwidth]{figs/1-ccm.png}}}
-	 \caption{Chroma feature of audio using CCM.}
-	 \label{fig:1-ccm}
+	 \includegraphics[width=\columnwidth]{figs/2-ccm-piano.png}}}
+	 \caption{Chroma feature of audio using CCM of piano tones.}
+	 \label{fig:2-ccm-piano}
 	\end{figure}	
 
-
-	Observa-se na figura \figref{fig:1-ccm} que a melodia apresentou uma maior clareza. Uma tabela comparativa das notas tocadas e identificadas foi feita tambem atraves da estrategia dos maximos:
+	Observa-se na figura \figref{fig:2-ccm-piano} que a melodia apresentou uma maior clareza. Eh visivel tambem a escala cromatica tocada pelo piano e algumas poucas notas do violao. Uma tabela comparativa das notas tocadas identificadas foi feita tambem atraves da estrategia dos maximos:
 
 	\begin{table}[h]
 	 \begin{center}
-	 \begin{tabular}{|l|l|}
+	 \begin{tabular}{|l|l|l|}
 	  \hline
-	  Played Notes & Identified Notes \\
+	  Piano & Acoustic Guitar & Identified Notes \\
 	  \hline
-	  A  & A \\
-	  A\#  & A\# \\
-	  B  & B \\
-	  C  & C \\
-	  C\#  & C\# \\
-	  C\#  & G\# \\
-	  C\#  & C\# \\
-	  D  & D \\
-	  D\#  & D\# \\
-	  E  & E \\
-	  F  & F \\
-	  F\#  & F\# \\
-	  G  & G \\
-	  G\#  & G\# \\
+		A	& A	& A \\
+		A	&    B	&    B \\
+		A\#	&    B	&    A\# \\
+		A\#	&    B	&    C\# \\
+		A\#	&    C\#	&    A\# \\
+		B	&    B	&    B \\
+		C	&    A	&    C \\
+		C\#	&    A	&    A \\
+		C\#	&    B	&    C\# \\
+		D	&    B	&    B \\
+		D	&    C\#	&    D \\
+		D\#	&    B	&    D\# \\
+		E	&    A	&    E \\
+		F	&    B	&    F \\
+		F\#	&    C\#	&    F\# \\
+		G	&    B	&    G \\
+		G\#	&    B	&    G\# \\
+		G\#	&    B	&    A \\
+	  \hline
+	 \end{tabular}
+	\end{center}
+	 \caption{Comparison between played notes of piano, acoustic guitar and identified notes of chroma feature with piano tones.}
+	 \label{tab:table-2-ccm-piano}
+	\end{table}
+
+	
+	Em vista dos resultados de \tabref{tab:table-2-ccm-piano}, houve 13 de 18 notas de piano em instantes corretos, ou seja, 72.2222\% de fidelidade com a melodia original. Quanto ao violao, houve 5 de 18 notas em instantes corretos, ocasionando em 27.7777\%. Tal resultado mostra que o CCM usando tons de piano realmente amplificou as suas notas e suprimiu as do violao.
+
+
+
+Segue chroma feature encontrado utilizando o CCM de tons de violao:
+	
+	\begin{figure}[h]
+	 \centerline{\framebox{
+	 \includegraphics[width=\columnwidth]{figs/2-ccm-violao.png}}}
+	 \caption{Chroma feature of audio using CCM of acoustic guitar tones.}
+	 \label{fig:2-ccm-violao}
+	\end{figure}	
+
+	Observa-se na figura \figref{fig:2-ccm-violao} que a melodia apresentou uma maior clareza. Eh visivel tambem a escala cromatica tocada pelo piano suprimida e as notas do violao amplificadas. Uma tabela comparativa das notas tocadas e identificadas foi feita tambem atraves da estrategia dos maximos:
+
+	\begin{table}[h]
+	 \begin{center}
+	 \begin{tabular}{|l|l|l|}
+	  \hline
+	  Piano & Acoustic Guitar & Identified Notes \\
+	  \hline
+			  A & A &  A \\
+		A\# &  B &  B \\
+		    A\# &  B &    A\# \\
+		    B  &   C\# &  C\# \\
+		    C   &  B  &   B \\
+		    C\# &  A   &  A \\
+		    D   &  B   &  C\# \\
+		    D\# &  C\# &  B \\
+		    D\# &  C\# &  D \\
+		    D\# &  C\# &  C\# \\
+		    E   &  B  &   D\# \\
+		    F   &  A   &  B \\
+		    F   &  A  &   E \\
+		    F\# &  B  &   A \\
+		    F\# &  B   &  B \\
+		    G   &  C\# &  F\# \\
+		    G   &  C\# &  C\# \\
+		    G\# &  B   &  G \\
+		    G\# &  B  &   B \\
 	  \hline
 	 \end{tabular}
 	\end{center}
 	 \caption{Comparison between played notes and identified notes.}
-	 \label{tab:table-1-ccm}
+	 \label{tab:table-2-ccm-violao}
 	\end{table}
 
 	\newpage
-	Em vista dos resultados de \tabref{tab:table-1-ccm}, houve 13 de 14 notas tocadas em instantes corretos, ou seja, 92.8571\% de fidelidade com a melodia original.
+	Em vista dos resultados de \tabref{tab:table-2-ccm-violao}, houve 9 de 19 notas de violao em instantes corretos, ou seja, 47.3684\% de fidelidade com a melodia original. Quanto ao piano, houve 2 de 19 notas em instantes corretos, ocasionando em 10.5263\%. Tal resultado mostra que o CCM usando tons de violao realmente amplificou as suas notas e suprimiu as do piano.
+
+
+\section{Discussion}\label{sec:discussion}
+
+	This template includes all the information about formatting manuscripts for the ISMIR \conferenceyear\ Conference.
+	Please follow these guidelines to give the final proceedings a uniform look.
+	Most of the required formatting is achieved automatically by using the supplied
+	style file (\LaTeX) or template (Word).
+	If you have any questions, please contact the Program Committee
+	(\texttt{ismir\conferenceyear-papers@ismir.net}).
+	This template can be downloaded from the ISMIR \conferenceyear\ web site (\texttt{http://ismir\conferenceyear.ismir.net}).
+	%
+	\section{Paper Length}
+	\textcolor{red}{The regulations for the maximal paper length have changed.}
+	Instead of the strict limit of six pages (as used for ISMIR 2014), we adopt 
+	a ``(6+1)-page policy'' for ISMIR 2015. This means, the paper may have a 
+	maximum of 6 pages for technical content including figures and possible references 
+	with one additional optional 7th page containing only references.
+	Note that this is a strict requirement. 
+	\textcolor{red}{The seventh page (if used at all) must
+	not contain any other material except for references.}
 
 
 % For bibtex users:
