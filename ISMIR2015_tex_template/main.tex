@@ -29,9 +29,9 @@
 % Three addresses
 % --------------
 \threeauthors
-  {First author} {Affiliation1 \\ {\tt author1@ismir.edu}}
-  {Second author} {\bf Retain these fake authors in\\\bf submission to preserve the formatting}
-  {Third author} {Affiliation3 \\ {\tt author3@ismir.edu}}
+  {Jose Pedro de Santana Neto} {University of Brasilia - FGA\\ {\tt 1jpsneto@gmail.com}}
+  {Henrique Gomes de Moura} {University of Brasilia - FGA\\ {\tt hgmoura@yahoo.com}}
+  {Fernando William Cruz} {University of Brasilia - FGA\\ {\tt fwcruz@unb.br}}
 
 % Four addresses
 % --------------
@@ -46,7 +46,9 @@
 \maketitle
 %
 \begin{abstract}
-The abstract should be placed at the top left column and should contain about 150-200 words.
+
+Neste trabalho eh apresentado um metodo alternativo e eficiente para a construcao de chroma feature ou Pitch Class Profile (PCP). O Chroma Convolution Method (CCM), que eh uma operacao essencialmente no dominio temporal, possui caracteristicas particulares que otimizam a distincao de notas e timbres de instrumentos musicais. Para a demonstracao da eficacia desse metodo, foram feitos dois experimentos comparativos com o metodo tradicional DFT ou STFT. Os experimentos mostraram que o CCM eh mais eficaz em identificacao das notas, como tambem, possui a capacidade de distincao de notas de diferentes instrumentos musicais tocados ao mesmo tempo.  
+
 \end{abstract}
 %
 \section{Introduction}\label{sec:introduction}
@@ -99,16 +101,16 @@ The abstract should be placed at the top left column and should contain about 15
 		\item funcoes senoidais monocromaticas foram utilizadas para construir notas musicais no dominio do tempo, correspondendo a escala cromatica musical; 
 		\item convoluiu-se cada parte do sinal de audio com as notas musicais;
 		\item a energia da convolucao foi extraida a partir da equacao \eqnref{ccm_equation};
-		\item por fim cada energia foi somada com suas respectivas oitavas, originando o chroma feature, esquematicamente apresentado na \figref{fig:chroma_feature}:
+		\item por fim cada energia foi somada com suas respectivas oitavas, originando o chroma feature, esquematicamente apresentado em \figref{fig:chroma_feature}.
+	\end{enumerate}
 
-		\begin{figure}[h]
+	\newpage
+	\begin{figure}[h]
 		 \centerline{\framebox{
 		 \includegraphics[width=\columnwidth, height=6cm]{figs/chroma_feature.png}}}
 		 \caption{Schematic representation of the chroma feature. On this chart, a full chromatic scale starting from A up to G\#.}
 		 \label{fig:chroma_feature}
 		\end{figure}
-
-	\end{enumerate}
 
 	A \figref{fig:schematic} representa uma visao esquematica do procedimento descrito. Ao final do processo as caracteristicas cromaticas (chroma feature) podem ser visualizadas a partir de um espectrograma de 12 dimensoes.
 
@@ -124,9 +126,10 @@ The abstract should be placed at the top left column and should contain about 15
 
 	Com o intuito de demonstrar a eficacia do CCM em relacao ao tradicional metodo STFT\cite{LabROSA}, no que diz respeito identificacao das notas tocadas a partir de suas caracteristicas cromaticas (chroma feature), foram realizados 2 experimentos usando a linguagem de programacao MATLAB. Como entrada de dados usou-se sinais de audio gravados por instrumentos musicais reais\footnote{Code and files available in https://github.com/josepedro/ismir\_article.}. 
 
+	\newpage
 	\subsection{Experiment 1: Identification of Musical Notes}
 
-	O primeiro experimento se trata de identificacao de notas musicais numa melodia de piano. Tais notas foram tocadas segundo a \figref{fig:1-notes}: 
+	O primeiro experimento se trata de identificacao de notas musicais numa melodia de piano. Tais notas foram tocadas segundo a \figref{fig:1-notes}.
 
 	\begin{figure}[h]
 	 \centerline{\framebox{
@@ -149,7 +152,9 @@ The abstract should be placed at the top left column and should contain about 15
 	\end{figure}	
 
 	
-	Foi tambem feito uma analise de eficiencia das notas gravadas no audio com a sequencia de notas identificas no chroma feature. As notas identificadas foram selecionadas atraves da maior intensidade em cada instante de tempo. Segue tabela comparativa:
+	Foi tambem feito uma analise de eficiencia das notas gravadas no audio com a sequencia de notas identificas no chroma feature. As notas identificadas foram selecionadas atraves da maior intensidade em cada instante de tempo. A \tabref{tab:table-1-sfft} representa as notas tocadas e as que foram identificadas no chroma feature. Houveram 9 de 14 notas tocadas em instantes corretos, ou seja, 64.3\% de fidelidade com a melodia original.
+
+	\newpage
 
 	\begin{table}[h]
 	 \begin{center}
@@ -178,11 +183,11 @@ The abstract should be placed at the top left column and should contain about 15
 	 \label{tab:table-1-sfft}
 	\end{table}
 
-	Dado os dados da tabela \tabref{tab:table-1-sfft}, houve 9 de 14 notas tocadas em instantes corretos, ou seja, 64.3\% de fidelidade com a melodia original.
+	
 
 
 	\subsubsection{CCM Results}
-	Segue chroma feature encontrado utilizando o CCM:
+	Segue chroma feature encontrado utilizando o CCM em \figref{fig:1-ccm}.
 	
 	\begin{figure}[h]
 	 \centerline{\framebox{
@@ -192,7 +197,9 @@ The abstract should be placed at the top left column and should contain about 15
 	\end{figure}	
 
 
-	Observa-se na figura \figref{fig:1-ccm} que a melodia apresentou uma maior clareza. Uma tabela comparativa das notas tocadas e identificadas foi feita tambem atraves da estrategia dos maximos:
+	Observa-se na figura \figref{fig:1-ccm} que a melodia apresentou uma maior clareza. Uma tabela comparativa das notas tocadas e identificadas foi feita tambem atraves da estrategia dos maximos. Em vista dos resultados de \tabref{tab:table-1-ccm}, houve 13 de 14 notas tocadas em instantes corretos, ou seja, 92.9\% de fidelidade com a melodia original.
+
+	\newpage
 
 	\begin{table}[h]
 	 \begin{center}
@@ -221,12 +228,10 @@ The abstract should be placed at the top left column and should contain about 15
 	 \label{tab:table-1-ccm}
 	\end{table}
 
-	Em vista dos resultados de \tabref{tab:table-1-ccm}, houve 13 de 14 notas tocadas em instantes corretos, ou seja, 92.9\% de fidelidade com a melodia original.
-
 
 	\subsection{Experiment 2: Identification of Musical Notes of Different Instruments}
 
-	O segundo experimento diz respeito a identificação de notas musicais de diferentes instrumentos. Para tal foram tocadas as seguintes melodias no piano e violao juntas:
+	O segundo experimento diz respeito a identificação de notas musicais de diferentes instrumentos. Para tal foram tocadas as seguintes melodias no piano e violao juntas representadas em \figref{fig:2-melodias}.
 
 	\begin{figure}[h]
 	 \centerline{\framebox{
@@ -236,13 +241,14 @@ The abstract should be placed at the top left column and should contain about 15
 	 \centerline{\framebox{
 	 \includegraphics[width=\columnwidth]{figs/2-notes-violao-piano.png}}}
 	 \caption{The first sheet music is only piano, the second sheet music is only acoustic guitar and the third sheet music is the both together.}
-	 \label{fig:1-ssft}
+	 \label{fig:2-melodias}
 	\end{figure}
 
 Utilizou-se convolucao com 12 tons de violao e 12 tons de piano de diferentes frequencias gerando dois chroma feature respectivamente, um para cada instrumento. As janelas de ambas as propostas foram configuradas no tamanho de 0.120 segundos e a taxa de amostragem do audio foi de 44.1 kHz.
 
 	\subsubsection{STFT Results}
-	Segue chroma feature encontrado utilizando o metodo tradicional da STFT:
+	Segue chroma feature encontrado utilizando o metodo tradicional da STFT em \figref{fig:2-ssft}. Observa-se nessa figura que a escala cromatica do piano foi parcialmente identificada. As notas do violao sao praticamente imperceptiveis.
+	\newpage
 	
 	\begin{figure}[h]
 	 \centerline{\framebox{
@@ -251,18 +257,19 @@ Utilizou-se convolucao com 12 tons de violao e 12 tons de piano de diferentes fr
 	 \label{fig:2-ssft}
 	\end{figure}	
 
-	Observa-se na figura \figref{fig:2-ssft} que a escala cromatica do piano foi parcialmente identificada. As notas do violao sao praticamente imperceptiveis.
-
-	Foi tambem feito uma analise de eficiencia das notas gravadas dos dois instrumentos com a sequencia de notas identificadas no chroma feature, usando a maior intensidade em cada instante de tempo. Segue tabela comparativa:
+	Foi tambem feito uma analise de eficiencia das notas gravadas dos dois instrumentos com a sequencia de notas identificadas no chroma feature, usando a maior intensidade em cada instante de tempo. Segue tabela comparativa em \tabref{tab:table-2-sfft}.
 
 	\begin{table}[h]
 	 \begin{center}
 	 	\centerline{
-	 \includegraphics[width=\columnwidth,height=12cm]{figs/tabela_2.png}}
+	 \includegraphics[width=\columnwidth,height=9cm]{figs/tabela_2.png}}
 	 \end{center}
 	 \caption{Comparison between played notes of piano, acoustic guitar and identified by the STFT method.}
 	 \label{tab:table-2-sfft}
 	\end{table}
+
+
+	\newpage
 
 	Primeiramente eh importante ressaltar que nao eh possivel obter um chroma feature para cada instrumento usando o metodo STFT. Deste modo, utilizando a estrategia da maxima intensidade a cada instante de tempo, so foi possivel obter um valor de eficiencia global em torno de 38.7\%, ou seja, a cada instante de tempo uma nota das duas notas tocadas pelos instrumentos, piano e violao, deveria ter sido identificada. Os resultados dessa analise se encontram em \tabref{tab:table-2-sfft}.
 
@@ -277,7 +284,7 @@ Utilizou-se convolucao com 12 tons de violao e 12 tons de piano de diferentes fr
 	 \label{fig:2-ccm-piano}
 	\end{figure}	
 
-	Observa-se na figura \figref{fig:2-ccm-piano} que a melodia executada no piano foi identificada com maior clareza. Sao visiveis tambem algumas notas executadas no violao. Uma tabela comparativa das notas tocadas identificadas foi feita tambem atraves da estrategia dos maximos:
+	Observa-se na figura \figref{fig:2-ccm-piano} que a melodia executada no piano foi identificada com maior clareza. Sao visiveis tambem algumas notas executadas no violao. Uma tabela comparativa das notas tocadas identificadas foi feita tambem atraves da estrategia dos maximos. Em vista dos resultados de \tabref{tab:table-2-ccm-piano}, houveram 13 de 18 notas de piano em instantes corretos, ou seja, 72.2\% de fidelidade com a melodia original. Quanto ao violao, houveram 5 de 18 notas em instantes corretos, ocasionando em 27.7\%. Tal resultado mostra que neste experimento o CCM amplificou as notas executadas pelo piano e suprimiu as notas executadas pelo violao.
 
 	\begin{table}[h]
 	 \begin{center}
@@ -310,12 +317,8 @@ Utilizou-se convolucao com 12 tons de violao e 12 tons de piano de diferentes fr
 	 \label{tab:table-2-ccm-piano}
 	\end{table}
 
-	
-	Em vista dos resultados de \tabref{tab:table-2-ccm-piano}, houveram 13 de 18 notas de piano em instantes corretos, ou seja, 72.2\% de fidelidade com a melodia original. Quanto ao violao, houveram 5 de 18 notas em instantes corretos, ocasionando em 27.7\%. Tal resultado mostra que neste experimento o CCM amplificou as notas executadas pelo piano e suprimiu as notas executadas pelo violao.
-
-
-
-Segue chroma feature encontrado utilizando o CCM de tons de violao:
+\newpage
+Segue chroma feature encontrado utilizando o CCM de tons de violao em \figref{fig:2-ccm-violao}. Observa-se na figura que a melodia executada pelo violao tambem foi identificada com maior clareza. Sao visiveis tambem algumas notas da escala cromatica executada no piano, que ficaram, em contraste com o resultado apresentado pela \figref{fig:2-ccm-piano}, suprimidas. Uma tabela comparativa das notas tocadas e identificadas foi feita tambem atraves da estrategia dos maximos. Em vista dos resultados de \tabref{tab:table-2-ccm-violao}, houveram 9 de 19 notas executadas no violao identificadas corretamente, ou seja, 47.4\% de fidelidade com a melodia original. Quanto ao piano, houveram 2 de 19 notas identificadas corretamente, ocasionando em 10.5\%.
 	
 	\begin{figure}[h]
 	 \centerline{\framebox{
@@ -324,7 +327,6 @@ Segue chroma feature encontrado utilizando o CCM de tons de violao:
 	 \label{fig:2-ccm-violao}
 	\end{figure}	
 
-	Observa-se na figura \figref{fig:2-ccm-violao} que a melodia executada pelo violao tambem foi identificada com maior clareza. Sao visiveis tambem algumas notas da escala cromatica executada no piano, que ficaram, em contraste com o resultado apresentado pela \figref{fig:2-ccm-piano}, suprimidas. Uma tabela comparativa das notas tocadas e identificadas foi feita tambem atraves da estrategia dos maximos:
 
 	\begin{table}[h]
 	 \begin{center}
@@ -357,8 +359,6 @@ Segue chroma feature encontrado utilizando o CCM de tons de violao:
 	 \caption{Comparison between played notes of piano, acoustic guitar and identified notes by the CCM with acoustic guitar tones.}
 	 \label{tab:table-2-ccm-violao}
 	\end{table}
-
-	Em vista dos resultados de \tabref{tab:table-2-ccm-violao}, houveram 9 de 19 notas executadas no violao identificadas corretamente, ou seja, 47.4\% de fidelidade com a melodia original. Quanto ao piano, houveram 2 de 19 notas identificadas corretamente, ocasionando em 10.5\%.
 
 
 \section{Discussion}\label{sec:discussion}
