@@ -143,12 +143,12 @@ The abstract should be placed at the top left column and should contain about 15
 	
 	\begin{figure}[h]
 	 \centerline{\framebox{
-	 \includegraphics[width=\columnwidth]{figs/1-sfft.png}}}
+	 \includegraphics[width=\columnwidth, height=6cm]{figs/1-sfft.eps}}}
 	 \caption{Obtained chroma feature by using the STFT method.}
 	 \label{fig:1-ssft}
 	\end{figure}	
 
-	\newpage
+	
 	Foi tambem feito uma analise de eficiencia das notas gravadas no audio com a sequencia de notas identificas no chroma feature. As notas identificadas foram selecionadas atraves da maior intensidade em cada instante de tempo. Segue tabela comparativa:
 
 	\begin{table}[h]
@@ -186,7 +186,7 @@ The abstract should be placed at the top left column and should contain about 15
 	
 	\begin{figure}[h]
 	 \centerline{\framebox{
-	 \includegraphics[width=\columnwidth]{figs/1-ccm.png}}}
+	 \includegraphics[width=\columnwidth, height=6cm]{figs/1-ccm.eps}}}
 	 \caption{Obtained chroma feature by using the Chroma Convolution method.}
 	 \label{fig:1-ccm}
 	\end{figure}	
@@ -217,7 +217,7 @@ The abstract should be placed at the top left column and should contain about 15
 	  \hline
 	 \end{tabular}
 	\end{center}
-	 \caption{Comparison between played notes and identified notes from chroma feature.}
+	 \caption{Comparison between played and identified notes by the Chroma Convolution Method.}
 	 \label{tab:table-1-ccm}
 	\end{table}
 
@@ -246,7 +246,7 @@ Utilizou-se convolucao com 12 tons de violao e 12 tons de piano de diferentes fr
 	
 	\begin{figure}[h]
 	 \centerline{\framebox{
-	 \includegraphics[width=\columnwidth]{figs/2-sfft.png}}}
+	 \includegraphics[width=\columnwidth, height=6cm]{figs/2-sfft.eps}}}
 	 \caption{Chroma feature of audio using STFT.}
 	 \label{fig:2-ssft}
 	\end{figure}	
@@ -260,7 +260,7 @@ Utilizou-se convolucao com 12 tons de violao e 12 tons de piano de diferentes fr
 	 	\centerline{
 	 \includegraphics[width=\columnwidth,height=12cm]{figs/tabela_2.png}}
 	 \end{center}
-	 \caption{Comparison between played notes of piano, acoustic guitar and identified notes of chroma feature.}
+	 \caption{Comparison between played notes of piano, acoustic guitar and identified by the STFT method.}
 	 \label{tab:table-2-sfft}
 	\end{table}
 
@@ -272,7 +272,7 @@ Utilizou-se convolucao com 12 tons de violao e 12 tons de piano de diferentes fr
 	
 	\begin{figure}[h]
 	 \centerline{\framebox{
-	 \includegraphics[width=\columnwidth]{figs/2-ccm-piano.png}}}
+	 \includegraphics[width=\columnwidth, height=6cm]{figs/2-ccm-piano.eps}}}
 	 \caption{Chroma feature of audio using CCM of piano tones.}
 	 \label{fig:2-ccm-piano}
 	\end{figure}	
@@ -306,7 +306,7 @@ Utilizou-se convolucao com 12 tons de violao e 12 tons de piano de diferentes fr
 	  \hline
 	 \end{tabular}
 	\end{center}
-	 \caption{Comparison between played notes of piano, acoustic guitar and identified notes of chroma feature with piano tones.}
+	 \caption{Comparison between played notes of piano, acoustic guitar and identified notes by the CCM with piano tones.}
 	 \label{tab:table-2-ccm-piano}
 	\end{table}
 
@@ -319,7 +319,7 @@ Segue chroma feature encontrado utilizando o CCM de tons de violao:
 	
 	\begin{figure}[h]
 	 \centerline{\framebox{
-	 \includegraphics[width=\columnwidth]{figs/2-ccm-violao.png}}}
+	 \includegraphics[width=\columnwidth, height=6cm]{figs/2-ccm-violao.eps}}}
 	 \caption{Chroma feature of audio using CCM of acoustic guitar tones.}
 	 \label{fig:2-ccm-violao}
 	\end{figure}	
@@ -354,11 +354,10 @@ Segue chroma feature encontrado utilizando o CCM de tons de violao:
 	  \hline
 	 \end{tabular}
 	\end{center}
-	 \caption{Comparison between played notes and identified notes.}
+	 \caption{Comparison between played notes of piano, acoustic guitar and identified notes by the CCM with acoustic guitar tones.}
 	 \label{tab:table-2-ccm-violao}
 	\end{table}
 
-	\newpage
 	Em vista dos resultados de \tabref{tab:table-2-ccm-violao}, houveram 9 de 19 notas executadas no violao identificadas corretamente, ou seja, 47.4\% de fidelidade com a melodia original. Quanto ao piano, houveram 2 de 19 notas identificadas corretamente, ocasionando em 10.5\%.
 
 
